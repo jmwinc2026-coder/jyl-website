@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Your Luck Health Services LLC</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --surface: #111111;
+  --card: #181818;
+  --gold: #C9A84C;
+  --gold-light: #E8C46A;
+  --gold-dark: #8B6914;
+  --gold-border: rgba(201,168,76,0.2);
+  --gold-border-strong: rgba(201,168,76,0.55);
+  --white: #F5F2EC;
+  --muted: #888;
+  --text: #E0DDD6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:64px;
+  background:rgba(8,8,8,0.92);
+  border-bottom:1px solid var(--gold-border);
+  backdrop-filter:blur(12px);
+}
+.nav-brand{display:flex;align-items:center;gap:12px;}
+.nav-brand-text{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);letter-spacing:0.5px;line-height:1;}
+.nav-brand-text span{display:block;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-style:normal;margin-top:2px;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;letter-spacing:0.5px;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{background:transparent;border:1px solid var(--gold-border-strong);color:var(--gold);padding:8px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold);color:#000;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px 40px 80px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 60% 40%, rgba(139,105,20,0.12) 0%, transparent 70%),
+             radial-gradient(ellipse 40% 40% at 20% 80%, rgba(45,106,79,0.06) 0%, transparent 60%),
+             var(--black);
+}
+.hero-grid{
+  position:absolute;inset:0;opacity:0.04;
+  background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-content{position:relative;z-index:2;max-width:760px;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+  margin-bottom:28px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:28px;height:1px;background:var(--gold);opacity:0.6;}
+.hero-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,7vw,88px);
+  font-weight:600;line-height:0.95;
+  color:var(--white);letter-spacing:-1px;
+  margin-bottom:24px;
+}
+.hero-headline em{color:var(--gold);font-style:italic;}
+.hero-body{font-size:17px;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:40px;font-weight:300;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold-light),var(--gold-dark));
+  color:#000;border:none;border-radius:4px;
+  padding:15px 32px;font-family:'DM Sans',sans-serif;
+  font-weight:500;font-size:14px;letter-spacing:0.5px;
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:opacity 0.2s;
+}
+.btn-primary:hover{opacity:0.88;}
+.btn-ghost{
+  color:var(--gold);text-decoration:none;font-size:14px;
+  font-weight:400;display:inline-flex;align-items:center;gap:8px;
+  border-bottom:1px solid var(--gold-border-strong);padding-bottom:2px;
+  transition:color 0.2s;
+}
+.btn-ghost:hover{color:var(--gold-light);}
+.hero-badge{
+  position:absolute;right:40px;top:50%;transform:translateY(-50%);
+  width:200px;height:200px;
+  border:1px solid var(--gold-border);border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:6px;
+  background:rgba(201,168,76,0.03);
+}
+.hero-badge-num{font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--gold);line-height:1;}
+.hero-badge-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);line-height:1.4;}
+
+/* ── MARQUEE ── */
+.marquee-wrap{
+  border-top:1px solid var(--gold-border);border-bottom:1px solid var(--gold-border);
+  padding:14px 0;overflow:hidden;white-space:nowrap;background:rgba(201,168,76,0.03);
+}
+.marquee-inner{display:inline-flex;gap:0;animation:marquee 28s linear infinite;}
+.marquee-item{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:0 32px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold);opacity:0.7;
+}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0.4;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ── SECTIONS ── */
+section{padding:100px 40px;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.section-tag::before{content:'';width:20px;height:1px;background:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,54px);font-weight:600;color:var(--white);line-height:1.1;margin-bottom:20px;}
+.section-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:560px;font-weight:300;}
+
+/* ── SERVICES ── */
+#services{background:var(--surface);}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--gold-border);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;margin-top:56px;}
+.service-card{
+  background:var(--card);padding:36px 32px;
+  transition:background 0.2s;cursor:default;
+}
+.service-card:hover{background:#1e1e1e;}
+.service-icon{
+  width:48px;height:48px;border-radius:8px;
+  background:rgba(201,168,76,0.08);border:1px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:20px;
+}
+.service-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white);margin-bottom:10px;font-weight:600;}
+.service-desc{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300;}
+.service-list{margin-top:16px;display:flex;flex-direction:column;gap:6px;}
+.service-list li{font-size:13px;color:var(--muted);list-style:none;display:flex;align-items:center;gap:8px;}
+.service-list li::before{content:'';width:5px;height:1px;background:var(--gold);flex-shrink:0;}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:56px;}
+.about-img{
+  aspect-ratio:4/5;background:var(--card);border:1px solid var(--gold-border);
+  border-radius:4px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.about-img-placeholder{text-align:center;}
+.about-logo-large{margin-bottom:16px;}
+.about-img-label{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+.about-img::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:40%;
+  background:linear-gradient(transparent,rgba(8,8,8,0.6));
+}
+.about-quote{
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;
+  color:var(--gold);line-height:1.4;margin-bottom:24px;
+}
+.about-body{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:32px;}
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
+.value-pill{
+  background:rgba(201,168,76,0.05);border:1px solid var(--gold-border);
+  border-radius:4px;padding:12px 14px;
+}
+.value-name{font-size:12px;font-weight:500;color:var(--gold);letter-spacing:0.5px;margin-bottom:3px;}
+.value-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* ── COURSES ── */
+#courses{background:var(--surface);}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:56px;}
+.course-card{
+  background:var(--card);border:1px solid var(--gold-border);border-radius:8px;
+  overflow:hidden;transition:border-color 0.2s;
+}
+.course-card:hover{border-color:var(--gold-border-strong);}
+.course-header{
+  padding:28px 28px 20px;
+  border-bottom:1px solid var(--gold-border);
+  background:rgba(201,168,76,0.03);
+}
+.course-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.course-name{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);font-weight:600;}
+.course-body{padding:24px 28px;}
+.course-features{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.course-feature{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);}
+.course-check{color:var(--gold);font-size:14px;flex-shrink:0;margin-top:1px;}
+.course-cta{
+  display:block;text-align:center;
+  background:transparent;border:1px solid var(--gold-border-strong);
+  color:var(--gold);padding:11px;border-radius:4px;
+  font-size:12px;letter-spacing:1px;text-transform:uppercase;
+  text-decoration:none;transition:all 0.2s;
+}
+.course-cta:hover{background:var(--gold);color:#000;}
+
+/* ── STATS ── */
+.stats-section{
+  padding:80px 40px;
+  border-top:1px solid var(--gold-border);
+  border-bottom:1px solid var(--gold-border);
+  background:rgba(201,168,76,0.02);
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:1100px;margin:0 auto;}
+.stat-item{padding:40px;text-align:center;border-right:1px solid var(--gold-border);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:56px;color:var(--gold);line-height:1;font-weight:600;}
+.stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+
+/* ── TRAINING APP CTA ── */
+.app-cta-section{padding:100px 40px;background:var(--surface);}
+.app-cta-inner{
+  max-width:1100px;margin:0 auto;
+  background:var(--card);border:1px solid var(--gold-border);border-radius:8px;
+  padding:64px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.app-cta-inner::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,0.08) 0%,transparent 70%);
+}
+.app-cta-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.app-cta-title{font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--white);font-weight:600;margin-bottom:12px;line-height:1.1;}
+.app-cta-sub{font-size:15px;color:var(--muted);line-height:1.6;font-weight:300;}
+.app-cta-actions{display:flex;flex-direction:column;gap:12px;flex-shrink:0;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:56px;align-items:start;}
+.contact-info{display:flex;flex-direction:column;gap:24px;}
+.contact-item{display:flex;gap:16px;align-items:flex-start;}
+.contact-icon{
+  width:40px;height:40px;border-radius:6px;flex-shrink:0;
+  background:rgba(201,168,76,0.08);border:1px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.contact-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.contact-value{font-size:15px;color:var(--white);}
+.contact-value a{color:var(--gold);text-decoration:none;}
+.contact-value a:hover{color:var(--gold-light);}
+.contact-form{display:flex;flex-direction:column;gap:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-field label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.form-field input,.form-field textarea,.form-field select{
+  width:100%;background:var(--card);border:1px solid var(--gold-border);
+  border-radius:4px;padding:12px 14px;color:var(--white);
+  font-family:'DM Sans',sans-serif;font-size:14px;outline:none;
+  transition:border-color 0.2s;
+}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--gold);}
+.form-field textarea{resize:vertical;min-height:110px;}
+.form-field select option{background:var(--card);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--surface);border-top:1px solid var(--gold-border);
+  padding:60px 40px 32px;
+}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:48px;}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:12px;}
+.footer-tagline{font-size:13px;color:var(--muted);line-height:1.6;font-style:italic;}
+.footer-col-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.footer-links{display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid var(--gold-border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:var(--muted);}
+.footer-credit{font-size:11px;color:var(--muted);opacity:0.5;}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:100px 20px 60px;}
+  .hero-badge{display:none;}
+  section{padding:70px 20px;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;}
+  .about-img{aspect-ratio:3/2;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .stat-item{border-right:none;border-bottom:1px solid var(--gold-border);padding:28px;}
+  .stat-item:nth-child(odd){border-right:1px solid var(--gold-border);}
+  .app-cta-inner{grid-template-columns:1fr;padding:36px 24px;}
+  .footer-top{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="19" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M20 34 C20 34 6 24 6 14 C6 9 10 6 14 6 C17 6 19 8 20 10 C21 8 23 6 26 6 C30 6 34 9 34 14 C34 24 20 34 20 34Z" fill="#8B1A1A" opacity="0.9"/>
+      <ellipse cx="15" cy="10" rx="5" ry="4" fill="#2D6A4F" transform="rotate(-30 15 10)"/>
+      <ellipse cx="21" cy="7" rx="5" ry="4" fill="#2D6A4F" transform="rotate(20 21 7)"/>
+      <ellipse cx="18" cy="5" rx="4" ry="5" fill="#40916C"/>
+      <rect x="17.5" y="10" width="2" height="5" rx="1" fill="#2D6A4F"/>
+      <rect x="19" y="8" width="1.5" height="22" rx="0.75" fill="#C9A84C"/>
+      <path d="M20 11 C17 9 14 10 14 13 C14 15 17 15 20 14" stroke="#C9A84C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <path d="M20 11 C23 9 26 10 26 13 C26 15 23 15 20 14" stroke="#C9A84C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <path d="M20 15 C18 17 18 20 20 22 C22 24 22 27 20 29" stroke="#E8C46A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <path d="M20 15 C22 17 22 20 20 22 C18 24 18 27 20 29" stroke="#C9A84C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-brand-text">Just Your Luck <span>Health Services LLC</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#courses">Courses</a>
+    <a href="#contact">Contact</a>
+    <a href="https://jmwinc2026-coder.github.io/jyl-training-app/" target="_blank" class="nav-cta">Student Portal</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Serving Pennsylvania &amp; Surrounding Areas</div>
+    <h1 class="hero-headline">
+      Precision.<br>Care.<br><em>Excellence.</em>
+    </h1>
+    <p class="hero-body">Mobile phlebotomy, healthcare education, and clinical services — built on trust, delivered with compassion. Led by Angelique Herman, Founder, CEO &amp; Lead Instructor.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Service</a>
+      <a href="#courses" class="btn-ghost">Explore Courses →</a>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <div class="hero-badge-num">5+</div>
+    <div class="hero-badge-label">Services<br>Offered</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item"><span class="marquee-dot"></span>Mobile Phlebotomy</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Drug Testing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>DNA Testing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Gender Reveal Services</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>CPR Classes</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Phlebotomy Certification</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Dialysis Tech Course</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Hands-On Learning</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Mobile Phlebotomy</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Drug Testing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>DNA Testing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Gender Reveal Services</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>CPR Classes</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Phlebotomy Certification</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Dialysis Tech Course</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Hands-On Learning</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title">Services Built Around You</h2>
+    <p class="section-sub">From mobile blood draws to life-saving CPR training — we come to you, or you come to us. Either way, you're in expert hands.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🚐</div>
+        <div class="service-name">Mobile Phlebotomy</div>
+        <p class="service-desc">Professional blood collection in the comfort of your home, office, or facility. No waiting rooms, no hassle.</p>
+        <ul class="service-list">
+          <li>Routine lab draws</li>
+          <li>Employer-ordered testing</li>
+          <li>We come to you</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧪</div>
+        <div class="service-name">Drug &amp; DNA Testing</div>
+        <p class="service-desc">Certified drug screening and DNA collection services for employers, legal proceedings, and personal knowledge.</p>
+        <ul class="service-list">
+          <li>DOT &amp; non-DOT panels</li>
+          <li>Paternity &amp; ancestry DNA</li>
+          <li>Court-admissible collection</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎈</div>
+        <div class="service-name">Gender Reveal Services</div>
+        <p class="service-desc">Safe, exciting, and medically accurate gender reveal blood testing. Celebrate life's biggest moments with trusted results.</p>
+        <ul class="service-list">
+          <li>Early detection available</li>
+          <li>Confidential until reveal</li>
+          <li>Memorable &amp; safe</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">❤️</div>
+        <div class="service-name">CPR Training</div>
+        <p class="service-desc">BLS certification and hands-on CPR training for healthcare professionals, families, and workplaces.</p>
+        <ul class="service-list">
+          <li>BLS Certification</li>
+          <li>Hands-on manikin practice</li>
+          <li>Group &amp; individual sessions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num">2+</div>
+      <div class="stat-label">Courses Offered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">PA</div>
+      <div class="stat-label">&amp; Surrounding Areas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5★</div>
+      <div class="stat-label">Client Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Mobile Convenience</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-tag">Who We Are</div>
+    <h2 class="section-title">Leader. Educator. Visionary.</h2>
+    <div class="about-grid">
+      <div class="about-img">
+        <div class="about-img-placeholder">
+          <svg class="about-logo-large" width="80" height="80" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="19" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.4"/>
+            <path d="M20 34 C20 34 6 24 6 14 C6 9 10 6 14 6 C17 6 19 8 20 10 C21 8 23 6 26 6 C30 6 34 9 34 14 C34 24 20 34 20 34Z" fill="#8B1A1A" opacity="0.7"/>
+            <ellipse cx="15" cy="10" rx="5" ry="4" fill="#2D6A4F" transform="rotate(-30 15 10)"/>
+            <ellipse cx="21" cy="7" rx="5" ry="4" fill="#2D6A4F" transform="rotate(20 21 7)"/>
+            <ellipse cx="18" cy="5" rx="4" ry="5" fill="#40916C"/>
+            <rect x="17.5" y="10" width="2" height="5" rx="1" fill="#2D6A4F"/>
+            <rect x="19" y="8" width="1.5" height="22" rx="0.75" fill="#C9A84C"/>
+            <path d="M20 11 C17 9 14 10 14 13 C14 15 17 15 20 14" stroke="#C9A84C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M20 11 C23 9 26 10 26 13 C26 15 23 15 20 14" stroke="#C9A84C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M20 15 C18 17 18 20 20 22 C22 24 22 27 20 29" stroke="#E8C46A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M20 15 C22 17 22 20 20 22 C18 24 18 27 20 29" stroke="#C9A84C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="about-img-label">Photo Coming Soon</div>
+        </div>
+      </div>
+      <div>
+        <p class="about-quote">"I don't just provide services — I build trust, create impact, and empower the next generation of healthcare professionals."</p>
+        <p class="about-body">Angelique Herman is the Founder, CEO, and Lead Instructor of Just Your Luck Health Services LLC. With a mission rooted in accessible healthcare and education, she has built JYL into a trusted name across Pennsylvania and surrounding communities.<br><br>From mobile phlebotomy that meets patients where they are, to certification courses that launch careers — everything at JYL is built on the belief that quality care and trusted service go hand in hand.</p>
+        <div class="values-grid">
+          <div class="value-pill"><div class="value-name">Resilient</div><div class="value-desc">I rise, I rebuild, I conquer.</div></div>
+          <div class="value-pill"><div class="value-name">Dedicated</div><div class="value-desc">My commitment is unshakable.</div></div>
+          <div class="value-pill"><div class="value-name">Empowering</div><div class="value-desc">I build confidence &amp; careers.</div></div>
+          <div class="value-pill"><div class="value-name">Detail Oriented</div><div class="value-desc">Excellence is not an act — it's a habit.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="section-inner">
+    <div class="section-tag">Education</div>
+    <h2 class="section-title">Teaching Future Healthcare Heroes</h2>
+    <p class="section-sub">Hands-on learning, real-world skills, and career advancement — designed for students who are serious about making an impact.</p>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-tag">Certification Course</div>
+          <div class="course-name">Phlebotomy Technician</div>
+        </div>
+        <div class="course-body">
+          <div class="course-features">
+            <div class="course-feature"><span class="course-check">✦</span>Hands-on venipuncture training</div>
+            <div class="course-feature"><span class="course-check">✦</span>Order of Draw &amp; tube identification</div>
+            <div class="course-feature"><span class="course-check">✦</span>Patient communication skills</div>
+            <div class="course-feature"><span class="course-check">✦</span>Certification exam preparation</div>
+            <div class="course-feature"><span class="course-check">✦</span>Real-world clinical scenarios</div>
+          </div>
+          <a href="#contact" class="course-cta">Enroll Now</a>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-tag">Certification Course</div>
+          <div class="course-name">Dialysis Technician</div>
+        </div>
+        <div class="course-body">
+          <div class="course-features">
+            <div class="course-feature"><span class="course-check">✦</span>Dialysis machine operation</div>
+            <div class="course-feature"><span class="course-check">✦</span>AV fistula access &amp; monitoring</div>
+            <div class="course-feature"><span class="course-check">✦</span>Patient safety protocols</div>
+            <div class="course-feature"><span class="course-check">✦</span>Career advancement pathways</div>
+            <div class="course-feature"><span class="course-check">✦</span>Changing lives through education</div>
+          </div>
+          <a href="#contact" class="course-cta">Enroll Now</a>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-tag">Certification</div>
+          <div class="course-name">BLS / CPR Training</div>
+        </div>
+        <div class="course-body">
+          <div class="course-features">
+            <div class="course-feature"><span class="course-check">✦</span>American Heart Association BLS</div>
+            <div class="course-feature"><span class="course-check">✦</span>Hands-on manikin practice</div>
+            <div class="course-feature"><span class="course-check">✦</span>AED training included</div>
+            <div class="course-feature"><span class="course-check">✦</span>Group &amp; individual sessions</div>
+            <div class="course-feature"><span class="course-check">✦</span>Confidence to save lives</div>
+          </div>
+          <a href="#contact" class="course-cta">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING APP CTA -->
+<div class="app-cta-section">
+  <div class="section-inner">
+    <div class="app-cta-inner">
+      <div>
+        <div class="app-cta-tag">For Enrolled Students</div>
+        <div class="app-cta-title">Access Your Training Portal</div>
+        <p class="app-cta-sub">Flashcards, quizzes, step-by-step procedure walkthroughs, and real patient scenarios — available anywhere, anytime.</p>
+      </div>
+      <div class="app-cta-actions">
+        <a href="https://jmwinc2026-coder.github.io/jyl-training-app/" target="_blank" class="btn-primary" style="text-align:center;white-space:nowrap;">Open Training App</a>
+        <a href="#contact" class="course-cta" style="text-align:center;white-space:nowrap;">Not enrolled yet?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">Ready to Get Started?</h2>
+    <p class="section-sub">Whether you need a mobile blood draw, want to enroll in a course, or have questions — we're here for you.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value"><a href="tel:4842393301">484-239-3301</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value"><a href="mailto:info@jyluck.org">info@jyluck.org</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <div class="contact-label">Website</div>
+            <div class="contact-value"><a href="https://jyluck.org">jyluck.org</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Service Area</div>
+            <div class="contact-value">Pennsylvania &amp; Surrounding Areas</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;padding:20px;background:var(--card);border:1px solid var(--gold-border);border-radius:6px;">
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Hours</div>
+          <div style="font-size:14px;color:var(--muted);line-height:1.8;">Monday – Friday: 8am – 6pm<br>Saturday: 9am – 3pm<br>Sunday: By appointment</div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-field"><label>First Name</label><input type="text" placeholder="Angelique"></div>
+            <div class="form-field"><label>Last Name</label><input type="text" placeholder="Herman"></div>
+          </div>
+          <div class="form-field"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+          <div class="form-field"><label>Phone</label><input type="tel" placeholder="484-000-0000"></div>
+          <div class="form-field">
+            <label>I'm interested in</label>
+            <select>
+              <option value="">Select a service...</option>
+              <option>Mobile Phlebotomy</option>
+              <option>Drug Testing</option>
+              <option>DNA Testing</option>
+              <option>Gender Reveal Services</option>
+              <option>CPR / BLS Training</option>
+              <option>Phlebotomy Technician Course</option>
+              <option>Dialysis Technician Course</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field"><label>Message</label><textarea placeholder="Tell us how we can help you..."></textarea></div>
+          <button class="btn-primary" onclick="submitForm()" style="width:100%;">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Just Your Luck Health Services LLC</div>
+        <p class="footer-tagline">"Precision. Care. Excellence."<br>Serving Pennsylvania &amp; Surrounding Areas</p>
+        <div style="margin-top:20px;display:flex;gap:12px;">
+          <a href="mailto:info@jyluck.org" style="font-size:12px;color:var(--muted);text-decoration:none;">info@jyluck.org</a>
+          <span style="color:var(--gold-border);">·</span>
+          <a href="tel:4842393301" style="font-size:12px;color:var(--muted);text-decoration:none;">484-239-3301</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="#services">Mobile Phlebotomy</a>
+          <a href="#services">Drug &amp; DNA Testing</a>
+          <a href="#services">Gender Reveal</a>
+          <a href="#services">CPR Training</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Education</div>
+        <div class="footer-links">
+          <a href="#courses">Phlebotomy Course</a>
+          <a href="#courses">Dialysis Tech Course</a>
+          <a href="#courses">BLS Certification</a>
+          <a href="https://jmwinc2026-coder.github.io/jyl-training-app/" target="_blank">Student Portal</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2025 Just Your Luck Health Services LLC. All rights reserved.</div>
+      <div class="footer-credit">Site built by JMW Developers</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  const links=document.querySelector('.nav-links');
+  if(links.style.display==='flex'){
+    links.style.display='none';
+  } else {
+    links.style.cssText='display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(8,8,8,0.98);padding:24px 20px;gap:20px;border-bottom:1px solid rgba(201,168,76,0.2);z-index:99;';
+  }
+}
+
+function submitForm(){
+  const btn=event.target;
+  btn.textContent='Message Sent ✓';
+  btn.style.background='linear-gradient(135deg,#4CAF7D,#2a7a4f)';
+  setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';},3000);
+}
+
+// Scroll-triggered nav highlight
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)current=s.id;});
+  navLinks.forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+current?'var(--gold)':'';
+  });
+});
+</script>
+</body>
+</html>
